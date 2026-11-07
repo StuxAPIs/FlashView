@@ -22,6 +22,7 @@ FlashView isn't affiliated with or endorsed by Adobe. Flash is a trademark of Ad
 - Play an `.swf` from a link, with a shareable `?url=` link (the hosting site has to allow CORS)
 - An old-DVD-player idle screen: the FlashView mark and "Please insert an SWF" bounce around the player
   and change colour at every wall, until something is loaded
+- Fullscreen for the player (a corner button on the idle screen, a bar button, or F11 on the idle screen)
 - Ruffle served from `flashview.stuxapis.net/ruffle/`, for any site to use:
   `<script src="https://flashview.stuxapis.net/ruffle/ruffle.js"></script>`
 - Ruffle pinned to a stable release with its SHA-256 (`ruffle.json`), checked for updates every week

@@ -4,6 +4,13 @@ All notable changes to FlashView are documented here.
 
 FlashView is in its pre-stable stage, on [Semantic Versioning](https://semver.org) (`0.x.y`). Its first stable release will be its first [Date Version](https://datevers.ing) (`YY.MM.DD`, the UTC release date), not `1.0.0`.
 
+## v0.1.3
+
+### Added
+
+- Fullscreen for the player: a button in the corner of the "Please insert an SWF" screen and a Fullscreen button in the player bar. In fullscreen the bouncing logo has the whole screen, like a DVD player's screensaver; the buttons change to "Exit fullscreen", and Esc leaves it
+- F11 on the "Please insert an SWF" screen fullscreens the player instead of the browser window, and pressing it again exits. Once a movie is loaded, F11 is left to the browser
+
 ## v0.1.2
 
 ### Fixed

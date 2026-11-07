@@ -59,6 +59,9 @@ like an old DVD player's logo (`.bounce` in `style.css`):
   pop (`bounce-pop`) runs on the same cycle. `tests/pages.js` checks the stops and timings.
 - The mark is `assets/bounce-mark.svg` as a CSS mask, coloured by `currentColor`.
 - With `prefers-reduced-motion`, or a player narrower than 420px, it sits still in the middle.
+- Fullscreen (the corner button, the bar button, or F11 while nothing is loaded) puts the stage itself into
+  fullscreen, so the logo bounces across the whole screen. F11 is only taken over on the idle screen; with a
+  movie loaded it is left to the browser. Headless browsers refuse fullscreen, so test it in a real window.
 
 If you change a duration or delay, recompute the hit percentages, the colour delay and the comment above
 the keyframes, and update the test.
