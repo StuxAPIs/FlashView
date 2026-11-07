@@ -9,6 +9,8 @@
     var urlForm = document.getElementById('url-form');
     var urlInput = document.getElementById('swf-url');
     var status = document.getElementById('now-playing');
+    var fsCorner = document.getElementById('fs-corner');
+    var fsBtn = document.getElementById('fs-btn');
     var player = null;
 
     window.RufflePlayer = window.RufflePlayer || {};
@@ -89,6 +91,42 @@
         e.preventDefault();
         if (urlInput.value.trim()) loadUrl(urlInput.value.trim());
     });
+
+    // Fullscreen puts the player itself (the stage) into fullscreen, idle screen or movie alike.
+    var fsElement = function () { return document.fullscreenElement || document.webkitFullscreenElement || null; };
+    var canFullscreen = !!(stage.requestFullscreen || stage.webkitRequestFullscreen);
+    function toggleFullscreen() {
+        if (fsElement()) {
+            (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+        } else {
+            var req = stage.requestFullscreen || stage.webkitRequestFullscreen;
+            Promise.resolve(req.call(stage)).catch(function () { say("Fullscreen isn't available here.", true); });
+        }
+    }
+    function syncFullscreen() {
+        var on = fsElement() === stage;
+        stage.classList.toggle('is-fullscreen', on);
+        fsBtn.textContent = on ? 'Exit fullscreen' : 'Fullscreen';
+        fsCorner.setAttribute('aria-label', on ? 'Exit fullscreen' : 'Fullscreen');
+        fsCorner.title = on ? 'Exit fullscreen (Esc)' : 'Fullscreen (F11)';
+    }
+    if (canFullscreen) {
+        fsBtn.addEventListener('click', toggleFullscreen);
+        fsCorner.addEventListener('click', toggleFullscreen);
+        document.addEventListener('fullscreenchange', syncFullscreen);
+        document.addEventListener('webkitfullscreenchange', syncFullscreen);
+        // On the "Please insert an SWF" screen, F11 fullscreens the player rather than the browser window.
+        // Once a movie is loaded, F11 is left alone (the movie or the browser may want it).
+        document.addEventListener('keydown', function (e) {
+            if (e.key !== 'F11' || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+            if (stage.classList.contains('has-movie') && !fsElement()) return;
+            e.preventDefault();
+            toggleFullscreen();
+        });
+    } else {
+        fsBtn.hidden = true;
+        fsCorner.hidden = true;
+    }
 
     ['dragenter', 'dragover'].forEach(function (type) {
         stage.addEventListener(type, function (e) { e.preventDefault(); stage.classList.add('dragging'); });

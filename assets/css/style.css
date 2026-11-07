@@ -133,6 +133,22 @@ footer p { margin: 4px 0; }
     --splash-screen-background: #050506; --modal-background: #1b1b1f; --modal-foreground-rgb: 242, 242, 245;
 }
 .stage.has-movie .idle { display: none; }
+/* Fullscreen: the player (not the page) fills the screen, so on the idle screen the bouncing logo
+   becomes a full-screen DVD-style screensaver (its container units follow the stage). */
+.stage:fullscreen { width: 100vw; height: 100vh; aspect-ratio: auto; border: 0; border-radius: 0; box-shadow: none; }
+.stage:fullscreen .idle-hint { bottom: 3cqh; }
+.fs-corner {
+    position: absolute; top: 12px; right: 12px; z-index: 3; width: 38px; height: 38px; padding: 8px;
+    border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(18, 18, 20, 0.6);
+    color: rgba(242, 242, 245, 0.75); cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.fs-corner:hover, .fs-corner:focus-visible { color: #fff; border-color: rgba(255, 90, 95, 0.6); background: rgba(200, 16, 46, 0.35); }
+.fs-corner svg { width: 100%; height: 100%; display: block; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fs-corner .fs-exit, .stage.is-fullscreen .fs-corner .fs-enter { display: none; }
+.stage.is-fullscreen .fs-corner .fs-exit { display: inline; }
+.stage.has-movie .fs-corner { display: none; }
+.idle-hint .hint-exit, .stage.is-fullscreen .idle-hint .hint-enter { display: none; }
+.stage.is-fullscreen .idle-hint .hint-exit { display: inline; }
 
 /* Idle screen: a click target for the file picker, with an old-DVD-player bouncing logo.
    The logo moves with two linear, alternating animations on different durations (13 s across, 9 s down),

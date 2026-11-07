@@ -49,8 +49,9 @@
         <div class="stage" id="stage">
             <button type="button" class="idle" id="idle" aria-label="Open an SWF file to play">
                 <span class="bounce" aria-hidden="true"><span class="bounce-inner"><span class="bounce-mark"></span><span class="bounce-text">Please insert an SWF</span></span></span>
-                <span class="idle-hint">Click, or drop a .swf file here</span>
+                <span class="idle-hint">Click, or drop a .swf file here <span class="hint-enter">&middot; F11 for fullscreen</span><span class="hint-exit">&middot; Esc to exit fullscreen</span></span>
             </button>
+            <button type="button" class="fs-corner" id="fs-corner" aria-label="Fullscreen" title="Fullscreen (F11)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="fs-enter" d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/><path class="fs-exit" d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5"/></svg></button>
         </div>
         <div class="player-bar">
             <button type="button" class="btn btn-solid" id="open-btn">Open SWF file</button>
@@ -59,6 +60,7 @@
                 <input type="url" id="swf-url" name="url" placeholder="https://example.com/movie.swf" inputmode="url" autocomplete="off" spellcheck="false">
                 <button type="submit" class="btn">Play link</button>
             </form>
+            <button type="button" class="btn" id="fs-btn" title="Fullscreen (F11 before a movie is loaded)">Fullscreen</button>
             <button type="button" class="btn" id="eject-btn" disabled>Eject</button>
             <input type="file" id="swf-file" accept=".swf,.spl,application/x-shockwave-flash" hidden>
         </div>
