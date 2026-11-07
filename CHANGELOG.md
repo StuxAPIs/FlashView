@@ -4,6 +4,12 @@ All notable changes to FlashView are documented here.
 
 FlashView is in its pre-stable stage, on [Semantic Versioning](https://semver.org) (`0.x.y`). Its first stable release will be its first [Date Version](https://datevers.ing) (`YY.MM.DD`, the UTC release date), not `1.0.0`.
 
+## v0.1.1
+
+### Changed
+
+- FlashView's address is flashview.stuxapis.net, not flash.stuxapis.net: the custom domain (`CNAME`), every page's links, Discord preview and Open Graph tags, the Embed page's script tag, and the README
+
 ## v0.1.0
 
 ### Added

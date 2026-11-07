@@ -1,7 +1,7 @@
 name: Deploy Pages
 
 # Builds the site (the repo plus the Ruffle release pinned in ruffle.json, checked against its SHA-256)
-# and deploys it to GitHub Pages at flash.stuxapis.net on every push to main.
+# and deploys it to GitHub Pages at flashview.stuxapis.net on every push to main.
 on:
   push:
     branches: [main]

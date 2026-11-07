@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#121214">
-    <script id="discord:component-embed" type="application/json">{"component":{"type":17,"accent_color":13111342,"components":[{"type":9,"components":[{"type":10,"content":"-# [StuxAPIs](https://stuxapis.net)\n# [FlashView · Embed](https://flash.stuxapis.net/embed)\n**Play SWF files in your browser.**\nLoad FlashView's self-hosted Ruffle on your own site with one script tag, and your old Flash embeds play again.\n-# Powered by Ruffle · nothing uploaded · a StuxAPIs service"}],"accessory":{"type":11,"media":{"url":"https://flash.stuxapis.net/assets/icon.png"}}},{"type":14},{"type":1,"components":[{"type":2,"style":5,"label":"Open the player","url":"https://flash.stuxapis.net/"},{"type":2,"style":5,"label":"Embed it","url":"https://flash.stuxapis.net/embed"},{"type":2,"style":5,"label":"StuxAPIs","url":"https://services.stuxapis.net"}]}]}}</script>
+    <script id="discord:component-embed" type="application/json">{"component":{"type":17,"accent_color":13111342,"components":[{"type":9,"components":[{"type":10,"content":"-# [StuxAPIs](https://stuxapis.net)\n# [FlashView · Embed](https://flashview.stuxapis.net/embed)\n**Play SWF files in your browser.**\nLoad FlashView's self-hosted Ruffle on your own site with one script tag, and your old Flash embeds play again.\n-# Powered by Ruffle · nothing uploaded · a StuxAPIs service"}],"accessory":{"type":11,"media":{"url":"https://flashview.stuxapis.net/assets/icon.png"}}},{"type":14},{"type":1,"components":[{"type":2,"style":5,"label":"Open the player","url":"https://flashview.stuxapis.net/"},{"type":2,"style":5,"label":"Embed it","url":"https://flashview.stuxapis.net/embed"},{"type":2,"style":5,"label":"StuxAPIs","url":"https://services.stuxapis.net"}]}]}}</script>
     <link rel="stylesheet" href="/assets/fonts/fonts.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <title>Embed — FlashView</title>
@@ -18,15 +18,15 @@
     <meta property="og:site_name" content="FlashView by StuxAPIs">
     <meta property="og:title" content="Embed — FlashView">
     <meta property="og:description" content="Load FlashView's self-hosted Ruffle on your own site with one script tag, and your old Flash embeds play again.">
-    <meta property="og:url" content="https://flash.stuxapis.net/embed">
-    <meta property="og:image" content="https://flash.stuxapis.net/assets/icon.png">
+    <meta property="og:url" content="https://flashview.stuxapis.net/embed">
+    <meta property="og:image" content="https://flashview.stuxapis.net/assets/icon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <meta property="og:image:alt" content="FlashView icon">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Embed — FlashView">
     <meta name="twitter:description" content="Load FlashView's self-hosted Ruffle on your own site with one script tag, and your old Flash embeds play again.">
-    <meta name="twitter:image" content="https://flash.stuxapis.net/assets/icon.png">
+    <meta name="twitter:image" content="https://flashview.stuxapis.net/assets/icon.png">
 </head>
 <body>
 
@@ -48,7 +48,7 @@
     <section id="quick-start">
         <h2>Quick start</h2>
         <p class="section-sub">Put this anywhere on a page with Flash content. Ruffle finds every <code>&lt;object&gt;</code> and <code>&lt;embed&gt;</code> that loads an SWF and replaces it with a player.</p>
-<pre><code>&lt;script src="https://flash.stuxapis.net/ruffle/ruffle.js"&gt;&lt;/script&gt;</code></pre>
+<pre><code>&lt;script src="https://flashview.stuxapis.net/ruffle/ruffle.js"&gt;&lt;/script&gt;</code></pre>
         <p class="section-sub">Ruffle loads its WebAssembly from FlashView too, so there's nothing else to host. Your SWF files stay on your own site.</p>
     </section>
 
@@ -56,7 +56,7 @@
         <h2>Add a player from JavaScript</h2>
         <p class="section-sub">For a page without existing embeds, create a player yourself:</p>
 <pre><code>&lt;div id="game" style="width:800px;height:600px"&gt;&lt;/div&gt;
-&lt;script src="https://flash.stuxapis.net/ruffle/ruffle.js"&gt;&lt;/script&gt;
+&lt;script src="https://flashview.stuxapis.net/ruffle/ruffle.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   const player = window.RufflePlayer.newest().createPlayer();
   player.style.width = '100%';
@@ -79,7 +79,7 @@
     splashScreen: false
   };
 &lt;/script&gt;
-&lt;script src="https://flash.stuxapis.net/ruffle/ruffle.js"&gt;&lt;/script&gt;</code></pre>
+&lt;script src="https://flashview.stuxapis.net/ruffle/ruffle.js"&gt;&lt;/script&gt;</code></pre>
         <table>
             <tr><th>Option</th><th>What it does</th></tr>
             <tr><td>autoplay</td><td><code>auto</code> plays when the browser allows it; <code>on</code> always tries; <code>off</code> waits for a click.</td></tr>
