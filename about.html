@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/icon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#121214">
+    <script id="discord:component-embed" type="application/json">{"component":{"type":17,"accent_color":13111342,"components":[{"type":9,"components":[{"type":10,"content":"-# [StuxAPIs](https://stuxapis.net)\n# [FlashView · About](https://flash.stuxapis.net/about)\n**Play SWF files in your browser.**\nWhat FlashView is: a StuxAPIs service that plays SWF files in the browser with Ruffle.\n-# Powered by Ruffle · nothing uploaded · a StuxAPIs service"}],"accessory":{"type":11,"media":{"url":"https://flash.stuxapis.net/assets/icon.png"}}},{"type":14},{"type":1,"components":[{"type":2,"style":5,"label":"Open the player","url":"https://flash.stuxapis.net/"},{"type":2,"style":5,"label":"Embed it","url":"https://flash.stuxapis.net/embed"},{"type":2,"style":5,"label":"StuxAPIs","url":"https://services.stuxapis.net"}]}]}}</script>
+    <link rel="stylesheet" href="/assets/fonts/fonts.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>About — FlashView</title>
+    <meta name="description" content="What FlashView is: a StuxAPIs service that plays SWF files in the browser with Ruffle.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="FlashView by StuxAPIs">
+    <meta property="og:title" content="About — FlashView">
+    <meta property="og:description" content="What FlashView is: a StuxAPIs service that plays SWF files in the browser with Ruffle.">
+    <meta property="og:url" content="https://flash.stuxapis.net/about">
+    <meta property="og:image" content="https://flash.stuxapis.net/assets/icon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="FlashView icon">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="About — FlashView">
+    <meta name="twitter:description" content="What FlashView is: a StuxAPIs service that plays SWF files in the browser with Ruffle.">
+    <meta name="twitter:image" content="https://flash.stuxapis.net/assets/icon.png">
+</head>
+<body>
+
+<header class="site-header">
+    <a class="brand" href="/" aria-label="FlashView home"><img class="brand-logo brand-logo--dark" src="/assets/logo-dark.svg" alt="FlashView" width="156" height="30"><img class="brand-logo brand-logo--light" src="/assets/logo.svg" alt="FlashView" width="156" height="30"><img class="brand-icon" src="/assets/icon.svg" alt="FlashView" width="32" height="32"></a>
+    <div class="header-right">
+        <nav class="site-nav" aria-label="Main"><a href="/">Player</a><a href="/embed">Embed</a><a href="/about" aria-current="page">About</a></nav>
+        <button type="button" id="theme-toggle" title="Toggle light/dark mode" aria-label="Toggle light/dark mode">&#9788;</button>
+    </div>
+</header>
+
+<main class="narrow">
+    <h1>About</h1>
+    <p class="subtitle">Play SWF files in your browser, from a StuxAPIs service.</p>
+    <p><a href="/">FlashView</a> plays Flash content (SWF files) in any modern browser, with no plugin. Open a file from your device or a link, and it plays on the page. It's built on <a href="https://ruffle.rs">Ruffle</a>, an open-source Flash Player emulator written in Rust, which FlashView hosts itself.</p>
+    <h2>What it does</h2>
+    <ul>
+        <li>Plays an SWF from your computer (pick it, or drop it on the player). The file is read by your browser and never uploaded.</li>
+        <li>Plays an SWF from a link, and gives you a <code>?url=</code> link to share it.</li>
+        <li>Hosts Ruffle for other sites: one script tag brings their old Flash embeds back. See <a href="/embed">Embed</a>.</li>
+    </ul>
+    <h2>What plays</h2>
+    <p>Ruffle supports most ActionScript 1 and 2 content (most Flash games and animations from before 2010), and a growing share of ActionScript 3. If something doesn't play, it's usually a Ruffle limitation; their <a href="https://ruffle.rs/compatibility">compatibility page</a> says what works.</p>
+    <h2>The name</h2>
+    <p>Flash and Flash Player are trademarks of Adobe. FlashView isn't affiliated with or endorsed by Adobe, and neither is Ruffle.</p>
+    <h2>Who's behind this</h2>
+    <p>Built &amp; Maintained by <a href="https://stuxapis.net">StuxAPIs</a>, Hosted by <a href="https://stuxedo.com">Stuxedo</a>. StuxAPIs is a part of the Stux.Group brand of businesses.</p>
+</main>
+
+<footer>
+    <p>&copy; <span data-copyright-years data-start="2026">2026</span> Stux.Group &mdash; <a href="/changelog" id="version-link">Changelog</a> &middot; <a href="/legal">Boring Legal Stuff</a> &middot; <a href="/about">About</a> &middot; <a href="https://services.stuxapis.net">A StuxAPIs Service</a></p>
+    <p>Plays SWF files with <a href="https://ruffle.rs">Ruffle</a>. FlashView isn't affiliated with or endorsed by Adobe.</p>
+</footer>
+<script src="/assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+name: Deploy Pages
+
+# Builds the site (the repo plus the Ruffle release pinned in ruffle.json, checked against its SHA-256)
+# and deploys it to GitHub Pages at flash.stuxapis.net on every push to main.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the pinned Ruffle
+        run: bash scripts/fetch-ruffle.sh
+      - name: Assemble the site
+        run: |
+          mkdir _site
+          cp -r index.html embed.html about.html changelog.html legal.html 404.html legal assets ruffle \
+            favicon.ico apple-touch-icon.png site.webmanifest CNAME VERSION.md CHANGELOG.md ruffle.json _site/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/icon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#121214">
+    <script id="discord:component-embed" type="application/json">{"component":{"type":17,"accent_color":13111342,"components":[{"type":9,"components":[{"type":10,"content":"-# [StuxAPIs](https://stuxapis.net)\n# [FlashView · Embed](https://flash.stuxapis.net/embed)\n**Play SWF files in your browser.**\nLoad FlashView's self-hosted Ruffle on your own site with one script tag, and your old Flash embeds play again.\n-# Powered by Ruffle · nothing uploaded · a StuxAPIs service"}],"accessory":{"type":11,"media":{"url":"https://flash.stuxapis.net/assets/icon.png"}}},{"type":14},{"type":1,"components":[{"type":2,"style":5,"label":"Open the player","url":"https://flash.stuxapis.net/"},{"type":2,"style":5,"label":"Embed it","url":"https://flash.stuxapis.net/embed"},{"type":2,"style":5,"label":"StuxAPIs","url":"https://services.stuxapis.net"}]}]}}</script>
+    <link rel="stylesheet" href="/assets/fonts/fonts.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>Embed — FlashView</title>
+    <meta name="description" content="Load FlashView's self-hosted Ruffle on your own site with one script tag, and your old Flash embeds play again.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="FlashView by StuxAPIs">
+    <meta property="og:title" content="Embed — FlashView">
+    <meta property="og:description" content="Load FlashView's self-hosted Ruffle on your own site with one script tag, and your old Flash embeds play again.">
+    <meta property="og:url" content="https://flash.stuxapis.net/embed">
+    <meta property="og:image" content="https://flash.stuxapis.net/assets/icon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="FlashView icon">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Embed — FlashView">
+    <meta name="twitter:description" content="Load FlashView's self-hosted Ruffle on your own site with one script tag, and your old Flash embeds play again.">
+    <meta name="twitter:image" content="https://flash.stuxapis.net/assets/icon.png">
+</head>
+<body>
+
+<header class="site-header">
+    <a class="brand" href="/" aria-label="FlashView home"><img class="brand-logo brand-logo--dark" src="/assets/logo-dark.svg" alt="FlashView" width="156" height="30"><img class="brand-logo brand-logo--light" src="/assets/logo.svg" alt="FlashView" width="156" height="30"><img class="brand-icon" src="/assets/icon.svg" alt="FlashView" width="32" height="32"></a>
+    <div class="header-right">
+        <nav class="site-nav" aria-label="Main"><a href="/">Player</a><a href="/embed" aria-current="page">Embed</a><a href="/about">About</a></nav>
+        <button type="button" id="theme-toggle" title="Toggle light/dark mode" aria-label="Toggle light/dark mode">&#9788;</button>
+    </div>
+</header>
+
+<main>
+    <div class="hero">
+        <p class="service-eyebrow"><img src="/assets/stuxapis-icon.png" alt=""><a href="https://services.stuxapis.net">A StuxAPIs Service</a></p>
+        <h1>Embed <em>Ruffle</em> on your site</h1>
+        <p class="lede">FlashView hosts a copy of Ruffle you can load from your own pages. Add one script tag and your old Flash embeds play again.</p>
+    </div>
+
+    <section id="quick-start">
+        <h2>Quick start</h2>
+        <p class="section-sub">Put this anywhere on a page with Flash content. Ruffle finds every <code>&lt;object&gt;</code> and <code>&lt;embed&gt;</code> that loads an SWF and replaces it with a player.</p>
+<pre><code>&lt;script src="https://flash.stuxapis.net/ruffle/ruffle.js"&gt;&lt;/script&gt;</code></pre>
+        <p class="section-sub">Ruffle loads its WebAssembly from FlashView too, so there's nothing else to host. Your SWF files stay on your own site.</p>
+    </section>
+
+    <section id="javascript">
+        <h2>Add a player from JavaScript</h2>
+        <p class="section-sub">For a page without existing embeds, create a player yourself:</p>
+<pre><code>&lt;div id="game" style="width:800px;height:600px"&gt;&lt;/div&gt;
+&lt;script src="https://flash.stuxapis.net/ruffle/ruffle.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const player = window.RufflePlayer.newest().createPlayer();
+  player.style.width = '100%';
+  player.style.height = '100%';
+  document.getElementById('game').appendChild(player);
+  player.ruffle().load('/games/my-game.swf');
+&lt;/script&gt;</code></pre>
+    </section>
+
+    <section id="config">
+        <h2>Options</h2>
+        <p class="section-sub">Set <code>window.RufflePlayer.config</code> before the script tag to change how every player behaves. A few useful ones:</p>
+<pre><code>&lt;script&gt;
+  window.RufflePlayer = window.RufflePlayer || {};
+  window.RufflePlayer.config = {
+    autoplay: 'on',            // 'auto', 'on' or 'off'
+    unmuteOverlay: 'hidden',   // or 'visible'
+    letterbox: 'on',           // 'fullscreen', 'off' or 'on'
+    backgroundColor: '#000000',
+    splashScreen: false
+  };
+&lt;/script&gt;
+&lt;script src="https://flash.stuxapis.net/ruffle/ruffle.js"&gt;&lt;/script&gt;</code></pre>
+        <table>
+            <tr><th>Option</th><th>What it does</th></tr>
+            <tr><td>autoplay</td><td><code>auto</code> plays when the browser allows it; <code>on</code> always tries; <code>off</code> waits for a click.</td></tr>
+            <tr><td>unmuteOverlay</td><td>Whether to show the &ldquo;click to unmute&rdquo; overlay when sound is blocked.</td></tr>
+            <tr><td>letterbox</td><td>Black bars to keep the movie's shape: <code>on</code>, <code>off</code> or <code>fullscreen</code> only.</td></tr>
+            <tr><td>backgroundColor</td><td>Overrides the movie's own background colour.</td></tr>
+            <tr><td>splashScreen</td><td>Whether to show Ruffle's loading screen.</td></tr>
+            <tr><td>polyfills</td><td><code>false</code> stops Ruffle replacing existing embeds, if you only want players you create.</td></tr>
+        </table>
+        <p class="section-sub">The full list is in <a href="https://github.com/ruffle-rs/ruffle/wiki/Using-Ruffle#javascript-api">Ruffle's documentation</a>.</p>
+    </section>
+
+    <section id="version">
+        <h2>Which version</h2>
+        <p class="section-sub">FlashView serves Ruffle <strong id="ruffle-version">(loading&hellip;)</strong>, a stable release. We check for new releases every week and update after testing. If you need a fixed version, or a lot of traffic, host Ruffle yourself: download the <a href="https://ruffle.rs/downloads">self-hosted build</a> and upload its files next to your pages.</p>
+        <p class="section-sub">Ruffle is made by the <a href="https://github.com/ruffle-rs/ruffle">Ruffle contributors</a> and is licensed MIT or Apache 2.0 (<a href="/ruffle/LICENSE_MIT">MIT</a>, <a href="/ruffle/LICENSE_APACHE">Apache</a>).</p>
+    </section>
+</main>
+<script>
+    fetch('/ruffle.json').then(function (r) { return r.json(); }).then(function (j) {
+        document.getElementById('ruffle-version').textContent = j.version;
+    }).catch(function () { document.getElementById('ruffle-version').textContent = 'a pinned release'; });
+</script>
+
+<footer>
+    <p>&copy; <span data-copyright-years data-start="2026">2026</span> Stux.Group &mdash; <a href="/changelog" id="version-link">Changelog</a> &middot; <a href="/legal">Boring Legal Stuff</a> &middot; <a href="/about">About</a> &middot; <a href="https://services.stuxapis.net">A StuxAPIs Service</a></p>
+    <p>Plays SWF files with <a href="https://ruffle.rs">Ruffle</a>. FlashView isn't affiliated with or endorsed by Adobe.</p>
+</footer>
+<script src="/assets/js/site.js"></script>
+</body>
+</html>

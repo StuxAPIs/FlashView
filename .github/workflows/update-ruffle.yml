@@ -1,0 +1,83 @@
+name: Check for a Ruffle update
+
+# Every Monday, compares ruffle.json with Ruffle's latest stable release. If there's a newer one, it pins it
+# (version, asset and SHA-256) on a ruffle-<version> branch and opens a pull request into test, so it's
+# reviewed and tested before it's released. Nothing reaches the live site until that is merged and
+# released into main as usual.
+#
+# Opening the pull request needs the repo setting "Allow GitHub Actions to create and approve pull
+# requests". Without it, the workflow opens an issue with a link to the branch instead.
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: test
+      - name: Compare with the latest stable release
+        id: latest
+        run: |
+          current="$(jq -r .version ruffle.json)"
+          tag="$(gh release view -R ruffle-rs/ruffle --json tagName -q .tagName)"
+          version="${tag#v}"
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          if [ "$version" = "$current" ] || [ "$(printf '%s\n%s\n' "$current" "$version" | sort -V | tail -1)" = "$current" ]; then
+            echo "Ruffle $current is the latest stable release."
+            echo "newer=false" >> "$GITHUB_OUTPUT"
+          elif git ls-remote --exit-code --heads origin "ruffle-$version" >/dev/null; then
+            echo "Branch ruffle-$version already exists."
+            echo "newer=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "newer=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Pin the new release
+        if: steps.latest.outputs.newer == 'true'
+        env:
+          VERSION: ${{ steps.latest.outputs.version }}
+          TAG: ${{ steps.latest.outputs.tag }}
+        run: |
+          asset="ruffle-$VERSION-web-selfhosted.zip"
+          gh release download "$TAG" -R ruffle-rs/ruffle -p "$asset" -D /tmp/ruffle
+          sha="$(sha256sum "/tmp/ruffle/$asset" | cut -d' ' -f1)"
+          jq --arg v "$VERSION" --arg t "$TAG" --arg a "$asset" --arg s "$sha" \
+            '.version=$v | .tag=$t | .asset=$a | .sha256=$s' ruffle.json > ruffle.json.new
+          mv ruffle.json.new ruffle.json
+          bash scripts/fetch-ruffle.sh
+          node tests/pages.js
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "ruffle-$VERSION"
+          git commit -am "Pin Ruffle $VERSION"
+          git push origin "ruffle-$VERSION"
+      - name: Open a pull request (or an issue)
+        if: steps.latest.outputs.newer == 'true'
+        env:
+          VERSION: ${{ steps.latest.outputs.version }}
+          CURRENT: ${{ steps.latest.outputs.current }}
+          TAG: ${{ steps.latest.outputs.tag }}
+        run: |
+          body="Ruffle $VERSION is out (FlashView pins $CURRENT). This branch pins it in ruffle.json with its SHA-256.
+
+          Release notes: https://github.com/ruffle-rs/ruffle/releases/tag/$TAG
+
+          Before merging: run ./dev-server.sh on this branch and play a couple of SWFs, then add a CHANGELOG entry and release as usual."
+          if ! gh pr create --base test --head "ruffle-$VERSION" --title "Pin Ruffle $VERSION" --body "$body"; then
+            gh issue create --title "Ruffle $VERSION is out" \
+              --body "$body
+
+          The workflow couldn't open a pull request, so open one from ruffle-$VERSION into test: https://github.com/${{ github.repository }}/compare/test...ruffle-$VERSION"
+          fi
