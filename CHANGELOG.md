@@ -4,6 +4,12 @@ All notable changes to FlashView are documented here.
 
 FlashView is in its pre-stable stage, on [Semantic Versioning](https://semver.org) (`0.x.y`). Its first stable release will be its first [Date Version](https://datevers.ing) (`YY.MM.DD`, the UTC release date), not `1.0.0`.
 
+## v0.1.2
+
+### Fixed
+
+- The GitHub Pages deploy gets 30 minutes to publish instead of the default 10. The first deploys of the ~30 MB site (most of it Ruffle's two WebAssembly builds) timed out while GitHub was still publishing them
+
 ## v0.1.1
 
 ### Changed

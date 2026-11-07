@@ -37,3 +37,7 @@ jobs:
           path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # The site is ~30 MB (Ruffle's two WebAssembly builds), and GitHub has taken longer than the
+          # default 10 minutes to publish it, so give it 30.
+          timeout: 1800000
