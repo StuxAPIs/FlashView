@@ -1,0 +1,9 @@
+/* Fredoka - self-hosted (SIL Open Font License), variable weight 400-700,
+   Latin subset only. https://fonts.google.com/specimen/Fredoka */
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('Fredoka.woff2') format('woff2');
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/icon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#121214">
+    <script id="discord:component-embed" type="application/json">{"component":{"type":17,"accent_color":13111342,"components":[{"type":9,"components":[{"type":10,"content":"-# [StuxAPIs](https://stuxapis.net)\n# [FlashView · Changelog](https://flashview.stuxapis.net/changelog)\n**Play SWF files in your browser.**\nWhat changed in each FlashView release.\n-# Powered by Ruffle · nothing uploaded · a StuxAPIs service"}],"accessory":{"type":11,"media":{"url":"https://flashview.stuxapis.net/assets/icon.png"}}},{"type":14},{"type":1,"components":[{"type":2,"style":5,"label":"Open the player","url":"https://flashview.stuxapis.net/"},{"type":2,"style":5,"label":"Embed it","url":"https://flashview.stuxapis.net/embed"},{"type":2,"style":5,"label":"StuxAPIs","url":"https://services.stuxapis.net"}]}]}}</script>
+    <link rel="stylesheet" href="/assets/fonts/fonts.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>Changelog — FlashView</title>
+    <meta name="description" content="What changed in each FlashView release.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="FlashView by StuxAPIs">
+    <meta property="og:title" content="Changelog — FlashView">
+    <meta property="og:description" content="What changed in each FlashView release.">
+    <meta property="og:url" content="https://flashview.stuxapis.net/changelog">
+    <meta property="og:image" content="https://flashview.stuxapis.net/assets/icon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="FlashView icon">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Changelog — FlashView">
+    <meta name="twitter:description" content="What changed in each FlashView release.">
+    <meta name="twitter:image" content="https://flashview.stuxapis.net/assets/icon.png">
+</head>
+<body>
+
+<header class="site-header">
+    <a class="brand" href="/" aria-label="FlashView home"><img class="brand-logo brand-logo--dark" src="/assets/logo-dark.svg" alt="FlashView" width="156" height="30"><img class="brand-logo brand-logo--light" src="/assets/logo.svg" alt="FlashView" width="156" height="30"><img class="brand-icon" src="/assets/icon.svg" alt="FlashView" width="32" height="32"></a>
+    <div class="header-right">
+        <nav class="site-nav" aria-label="Main"><a href="/">Player</a><a href="/embed">Embed</a><a href="/about">About</a></nav>
+        <button type="button" id="theme-toggle" title="Toggle light/dark mode" aria-label="Toggle light/dark mode">&#9788;</button>
+    </div>
+</header>
+
+<main class="narrow">
+    <h1>Changelog</h1>
+    <p class="subtitle">What changed in each FlashView release. FlashView is in its pre-stable stage, on Semantic Versioning (<code>0.x.y</code>).</p>
+    <div id="changelog-body"><p class="changelog-p">Loading&hellip;</p></div>
+</main>
+<script>
+    (function () {
+        var target = document.getElementById('changelog-body');
+        // Fixed display order: sections are sorted into this order at render time rather than trusting the
+        // markdown's order; unknown types go last.
+        var CATEGORIES = ['Added', 'Changed', 'Fixed', 'Removed', 'Security', 'Deprecated'];
+        function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+        function inline(s) {
+            return esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2">$1</a>');
+        }
+        function render(md) {
+            var releases = md.replace(/\r\n/g, '\n').split(/^(?=## )/m).filter(function (r) { return /^## /.test(r); });
+            target.innerHTML = releases.map(function (rel) {
+                var chunks = rel.split(/^(?=### )/m);
+                var version = chunks.shift().match(/^##\s+(.+)/)[1].trim();
+                var sections = chunks.map(function (c, i) {
+                    var name = (c.match(/^###\s+(.+)/) || [, ''])[1].trim();
+                    var rank = CATEGORIES.indexOf(name);
+                    var items = [];
+                    c.split('\n').slice(1).forEach(function (line) {
+                        var m = line.match(/^-\s+(.*)$/);
+                        if (m) items.push(m[1]); else if (line.trim() && items.length) items[items.length - 1] += ' ' + line.trim();
+                    });
+                    return { name: name, rank: rank === -1 ? CATEGORIES.length : rank, i: i, items: items };
+                }).sort(function (a, b) { return a.rank - b.rank || a.i - b.i; });
+                return '<div class="changelog-entry"><h3 class="changelog-version">' + esc(version) + '</h3>' +
+                    sections.map(function (s) {
+                        var label = CATEGORIES.indexOf(s.name) !== -1
+                            ? '<span class="changelog-label changelog-label-' + s.name.toLowerCase() + '">' + s.name + '</span>'
+                            : '<strong>' + esc(s.name) + '</strong>';
+                        return '<div class="changelog-label-row">' + label + '</div><ul class="changelog-list">' +
+                            s.items.map(function (it) { return '<li>' + inline(it) + '</li>'; }).join('') + '</ul>';
+                    }).join('') + '</div>';
+            }).join('') || '<p class="changelog-p">No changelog entries yet.</p>';
+        }
+        fetch('/CHANGELOG.md').then(function (r) { if (!r.ok) throw new Error(); return r.text(); }).then(render)
+            .catch(function () { target.innerHTML = '<p class="changelog-p">The changelog couldn\'t be loaded. It\'s also on <a href="https://github.com/StuxAPIs/FlashView/blob/main/CHANGELOG.md">GitHub</a>.</p>'; });
+    })();
+</script>
+
+<footer>
+    <p>&copy; <span data-copyright-years data-start="2026">2026</span> Stux.Group &mdash; <a href="/changelog" id="version-link">Changelog</a> &middot; <a href="/legal">Boring Legal Stuff</a> &middot; <a href="/about">About</a> &middot; <a href="https://services.stuxapis.net">A StuxAPIs Service</a></p>
+    <p>Plays SWF files with <a href="https://ruffle.rs">Ruffle</a>. FlashView isn't affiliated with or endorsed by Adobe.</p>
+</footer>
+<script src="/assets/js/site.js"></script>
+</body>
+</html>
