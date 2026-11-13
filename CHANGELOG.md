@@ -4,7 +4,7 @@ All notable changes to FlashView are documented here.
 
 FlashView is in its pre-stable stage, on [Semantic Versioning](https://semver.org) (`0.x.y`). Its first stable release will be its first [Date Version](https://datevers.ing) (`YY.MM.DD`, the UTC release date), not `1.0.0`.
 
-## v0.4.0
+## v0.4.1
 
 ### Added
 
@@ -12,9 +12,9 @@ FlashView is in its pre-stable stage, on [Semantic Versioning](https://semver.or
 
 ### Changed
 
-- **Versions renumbered:** a release that adds features or changes what visitors see now raises the middle number, and fixes raise the last. So v0.1.1 (the move to flashview.stuxapis.net) is now v0.2.0, v0.1.2 (the deploy timeout fix) v0.2.1, v0.1.3 (fullscreen) v0.3.0, v0.1.4 (the address change) v0.3.1, and this release, which would have been v0.1.5, is v0.4.0. v0.1.0 keeps its number. The old tags were replaced; their commit messages still say the old numbers
+- **Versions renumbered:** a release that adds features or changes what visitors see now raises the middle number, and fixes and behind-the-scenes changes raise the last. So v0.1.1 (the move to flashview.stuxapis.net) is now v0.2.0, v0.1.2 (the deploy timeout fix) v0.2.1, v0.1.3 (fullscreen) v0.3.0, v0.1.4 (the registered-office change) v0.4.0, and this release, which would have been v0.1.5, is v0.4.1. v0.1.0 keeps its number. The old tags were replaced; their commit messages still say the old numbers
 
-## v0.3.1
+## v0.4.0
 
 ### Changed
 
