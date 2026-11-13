@@ -4,26 +4,36 @@ All notable changes to FlashView are documented here.
 
 FlashView is in its pre-stable stage, on [Semantic Versioning](https://semver.org) (`0.x.y`). Its first stable release will be its first [Date Version](https://datevers.ing) (`YY.MM.DD`, the UTC release date), not `1.0.0`.
 
-## v0.1.4
+## v0.5.0
+
+### Added
+
+- `scripts/build-pages.py`, which builds every page (the root pages and `legal/`) from one file with a shared `<head>`, header and footer. It used to live outside the repo. `--check` fails if a committed page differs from what it builds, and CI runs it. CONTRIBUTING and the README explain it
+
+### Changed
+
+- **Versions renumbered:** a release that adds something (a feature, a page or a tool) or changes what visitors see now raises the middle number, and fixes raise the last. So v0.1.1 (the move to flashview.stuxapis.net) is now v0.2.0, v0.1.2 (the deploy timeout fix) v0.2.1, v0.1.3 (fullscreen) v0.3.0, v0.1.4 (the registered-office change) v0.4.0, and this release, which would have been v0.1.5, is v0.5.0. v0.1.0 keeps its number. The old tags were replaced; their commit messages still say the old numbers
+
+## v0.4.0
 
 ### Changed
 
 - Stux Group Ltd's registered office is now 124 City Road, London, EC1V 2NX, England, United Kingdom (it was 82a James Carter Road, Mildenhall), on the Imprint page. The company number and registration are unchanged
 
-## v0.1.3
+## v0.3.0
 
 ### Added
 
 - Fullscreen for the player: a button in the corner of the "Please insert an SWF" screen and a Fullscreen button in the player bar. In fullscreen the bouncing logo has the whole screen, like a DVD player's screensaver; the buttons change to "Exit fullscreen", and Esc leaves it
 - F11 on the "Please insert an SWF" screen fullscreens the player instead of the browser window, and pressing it again exits. Once a movie is loaded, F11 is left to the browser
 
-## v0.1.2
+## v0.2.1
 
 ### Fixed
 
 - The GitHub Pages deploy gets 30 minutes to publish instead of the default 10. The first deploys of the ~30 MB site (most of it Ruffle's two WebAssembly builds) timed out while GitHub was still publishing them
 
-## v0.1.1
+## v0.2.0
 
 ### Changed
 

@@ -43,7 +43,7 @@ assets/js/player.js     the player: file picker, drag and drop, links, Ruffle se
 assets/                 logos, icons, bounce-mark.svg (the idle logo's mask), self-hosted Fredoka
 ruffle.json             the pinned Ruffle release (version, asset, SHA-256)
 ruffle/                 the unpacked Ruffle, fetched by scripts/fetch-ruffle.sh (gitignored)
-scripts/                fetch-ruffle.sh, dev-server.py, build-icons.py
+scripts/                build-pages.py (writes every page), fetch-ruffle.sh, dev-server.py, build-icons.py
 tests/                  pages.js, version.sh
 .github/workflows/      ci.yml, pages.yml, update-ruffle.yml
 ```
@@ -67,6 +67,7 @@ the zip's SHA-256) and run `bash scripts/fetch-ruffle.sh --force`.
 ```
 node tests/pages.js     # every page's embed, favicons and shared assets, the idle logo's timing, the Ruffle pin
 bash tests/version.sh   # VERSION.md and the changelog
+python -I scripts/build-pages.py --check   # the committed pages match the page builder
 ```
 
 CI also checks that the pinned Ruffle downloads with the right SHA-256, and runs shellcheck.
