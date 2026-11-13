@@ -4,19 +4,23 @@ All notable changes to FlashView are documented here.
 
 FlashView is in its pre-stable stage, on [Semantic Versioning](https://semver.org) (`0.x.y`). Its first stable release will be its first [Date Version](https://datevers.ing) (`YY.MM.DD`, the UTC release date), not `1.0.0`.
 
-## v0.1.5
+## v0.3.0
 
 ### Added
 
 - `scripts/build-pages.py`, which builds every page (the root pages and `legal/`) from one file with a shared `<head>`, header and footer. It used to live outside the repo. `--check` fails if a committed page differs from what it builds, and CI runs it. CONTRIBUTING and the README explain it
 
-## v0.1.4
+### Changed
+
+- **Versions renumbered:** a release that adds features now raises the middle number, and fixes raise the last. So v0.1.3 (fullscreen) is now v0.2.0, v0.1.4 (the address change) v0.2.1, and this release, which would have been v0.1.5, is v0.3.0. v0.1.0 to v0.1.2 keep their numbers. The old tags were replaced; their commit messages still say the old numbers
+
+## v0.2.1
 
 ### Changed
 
 - Stux Group Ltd's registered office is now 124 City Road, London, EC1V 2NX, England, United Kingdom (it was 82a James Carter Road, Mildenhall), on the Imprint page. The company number and registration are unchanged
 
-## v0.1.3
+## v0.2.0
 
 ### Added
 
