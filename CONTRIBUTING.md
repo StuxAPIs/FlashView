@@ -87,9 +87,9 @@ the **Boring Legal Stuff** hub at `legal.html` (`/legal`). Keep them in step wit
 FlashView is pre-stable, on Semantic Versioning `0.x.y`. To release:
 
 1. Add a `## v0.x.y` entry at the top of `CHANGELOG.md`, with its sections in this order: Added, Changed, Fixed, Removed, Security, Deprecated.
-2. Set `VERSION.md` to the same bare version (no `v`). Raise the middle number for a release that adds a
-   feature or changes what visitors see (0.4.1 → 0.5.0), and the last number for fixes and behind-the-scenes
-   changes only (0.5.0 → 0.5.1). `./commit.sh --next` suggests the next fix version.
+2. Set `VERSION.md` to the same bare version (no `v`). Raise the middle number for a release that
+   adds something (a feature, a page or a tool) or changes what visitors see (0.5.0 → 0.6.0), and the last
+   number for fixes only (0.6.0 → 0.6.1). `./commit.sh --next` suggests the next fix version.
 3. Run `bash tests/version.sh` and `node tests/pages.js`.
 4. Run `./commit.sh` (or `commit.bat` on Windows). It checks the version, commits and tags `v0.x.y`, and never pushes.
 
