@@ -88,8 +88,8 @@ FlashView is pre-stable, on Semantic Versioning `0.x.y`. To release:
 
 1. Add a `## v0.x.y` entry at the top of `CHANGELOG.md`, with its sections in this order: Added, Changed, Fixed, Removed, Security, Deprecated.
 2. Set `VERSION.md` to the same bare version (no `v`). Raise the middle number for a release that adds a
-   feature or changes what visitors see (0.2.1 → 0.3.0), and the last number for fixes and small changes
-   only (0.3.0 → 0.3.1). `./commit.sh --next` suggests the next fix version.
+   feature or changes what visitors see (0.3.1 → 0.4.0), and the last number for fixes and small changes
+   only (0.4.0 → 0.4.1). `./commit.sh --next` suggests the next fix version.
 3. Run `bash tests/version.sh` and `node tests/pages.js`.
 4. Run `./commit.sh` (or `commit.bat` on Windows). It checks the version, commits and tags `v0.x.y`, and never pushes.
 
