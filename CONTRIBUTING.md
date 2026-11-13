@@ -30,9 +30,13 @@ Pass `--no-dev-mode` to hide the "LOCAL DEV" banner and see the site as producti
   (or in `legal/`), with absolute asset paths (`/assets/...`), because GitHub Pages serves `404.html` at
   any URL.
 - **Shared code:** styles in `assets/css/style.css`, theme and footer in `assets/js/site.js`, the player
-  in `assets/js/player.js`. Copy an existing page's `<head>`, header and footer when adding one, add it to
-  the list in `tests/pages.js` and the copy step in `.github/workflows/pages.yml`, and give it its own
-  Discord embed (the 404 page has none).
+  in `assets/js/player.js`.
+- **Pages are built by `scripts/build-pages.py`.** It holds every page's content and writes all the `.html`
+  files with one shared `<head>` (favicons, Open Graph, the Discord embed), header and footer. Edit the
+  content there and run `python -I scripts/build-pages.py`; don't hand-edit a page, or the next build undoes
+  it. CI runs it with `--check` and fails if a committed page differs. To add a page, add a `page(...)` call
+  there, add it to the list in `tests/pages.js` and the copy step in `.github/workflows/pages.yml` (the 404
+  page has no Discord embed).
 - **Colours:** FlashView red, `#c8102e` (light) and `#ff6b70` (dark), from the logo's `#ff5a5f` to
   `#b3122a` gradient. The icon PNGs and `favicon.ico` are drawn by `python -I scripts/build-icons.py`
   from the same shapes as `assets/icon.svg`; run it after changing the icon.

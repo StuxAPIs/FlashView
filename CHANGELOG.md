@@ -4,6 +4,12 @@ All notable changes to FlashView are documented here.
 
 FlashView is in its pre-stable stage, on [Semantic Versioning](https://semver.org) (`0.x.y`). Its first stable release will be its first [Date Version](https://datevers.ing) (`YY.MM.DD`, the UTC release date), not `1.0.0`.
 
+## v0.1.5
+
+### Added
+
+- `scripts/build-pages.py`, which builds every page (the root pages and `legal/`) from one file with a shared `<head>`, header and footer. It used to live outside the repo. `--check` fails if a committed page differs from what it builds, and CI runs it. CONTRIBUTING and the README explain it
+
 ## v0.1.4
 
 ### Changed
