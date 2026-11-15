@@ -4,6 +4,16 @@ All notable changes to FlashView are documented here.
 
 FlashView is in its pre-stable stage, on [Semantic Versioning](https://semver.org) (`0.x.y`). Its first stable release will be its first [Date Version](https://datevers.ing) (`YY.MM.DD`, the UTC release date), not `1.0.0`.
 
+## v0.6.0
+
+### Added
+
+- `--lan` for `dev-server.sh` / `dev-server.bat`: the dev server listens on all network interfaces instead of `127.0.0.1` only, so a phone or tablet on the same network can open it, and prints the addresses to open (usually the `192.168.x.x` one). Without it, it still listens on `127.0.0.1` only. The README and CONTRIBUTING explain it
+
+### Changed
+
+- Releases now go live in two steps, each through a pull request: `test` into `staging`, then `staging` into `main`. `staging` is a new branch made from `main`, and nothing is pushed to `staging` or `main` directly. `commit.sh` / `commit.bat` refuse to run on `staging` or `main`, and print the push command and both `gh pr create` commands. CI also runs on `staging`. CONTRIBUTING's "Branches and going live" section and the README describe it
+
 ## v0.5.0
 
 ### Added

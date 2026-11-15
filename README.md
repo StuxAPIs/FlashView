@@ -54,6 +54,7 @@ Run `./dev-server.sh [port]` (or `dev-server.bat [port]` on Windows), then open 
 It fetches the pinned Ruffle into `ruffle/` the first time, and serves the site the way GitHub Pages does
 (clean URLs, the 404 page, `application/wasm`). Dev mode is on by default and shows a "LOCAL DEV" banner;
 pass `--no-dev-mode` to see the site exactly as production serves it. Needs Python 3, `curl` and `unzip`.
+Add `--lan` to open it from a phone or tablet on the same network: the server then listens on all interfaces instead of `127.0.0.1` only, and prints the addresses to open (usually the `192.168.x.x` one).
 
 ## Updating Ruffle
 
@@ -78,8 +79,7 @@ FlashView is in its **pre-stable stage**, on [Semantic Versioning](https://semve
 stable release will be its first [Date Version](https://datevers.ing) (`YY.MM.DD`, the UTC release date)
 instead of `1.0.0`, and every release after that uses Date Versioning too. See [CHANGELOG.md](CHANGELOG.md).
 
-Releases are committed and tagged on the `test` branch and reach `main` through a pull request from `test`,
-which needs CI to pass and is reviewed and merged by Leo; see [Branches](CONTRIBUTING.md#branches).
+Releases are committed and tagged on the `test` branch, then go live through two pull requests: `test` into `staging`, then `staging` into `main`. Each needs CI to pass and is reviewed and merged by Leo; see [Branches and going live](CONTRIBUTING.md#branches-and-going-live).
 
 ## Contact
 
