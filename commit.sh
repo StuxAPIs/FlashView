@@ -46,6 +46,14 @@ next_version() {
 if [ "${1:-}" = "--next" ]; then next_version; exit 0; fi
 
 VERSION="$(tr -d '[:space:]' < "$DIR/VERSION.md")"
+
+# Releases are made on test (or a branch off it). staging and main only change through
+# pull requests: test -> staging -> main.
+BRANCH="$(git -C "$DIR" rev-parse --abbrev-ref HEAD)"
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "staging" ]; then
+    echo "You're on $BRANCH. Releases are made on test, then go test -> staging -> main through pull requests: git switch test" >&2
+    exit 1
+fi
 fail() {
     echo "VERSION.md says '$VERSION': $1" >&2
     echo "A suggested next version is $(next_version) (./commit.sh --next)." >&2
@@ -77,4 +85,6 @@ fi
 
 git tag -a "v${VERSION}" -m "FlashView v${VERSION}"
 echo "Tagged v${VERSION}."
-echo "Push with: git push origin test v${VERSION}, then open a pull request from test into main."
+echo "Push with: git push origin $BRANCH v${VERSION}"
+echo "Then open a pull request into staging: gh pr create --base staging --head $BRANCH"
+echo "Once staging is checked, open one from staging into main: gh pr create --base main --head staging"

@@ -8,6 +8,17 @@ set "DIR=%~dp0"
 cd /d "%DIR%"
 set /p VERSION=<"%DIR%VERSION.md"
 
+REM Releases are made on test (or a branch off it). staging and main only change through
+REM pull requests: test -> staging -> main.
+for /f "delims=" %%b in ('git -C "%DIR%." rev-parse --abbrev-ref HEAD') do set "BRANCH=%%b"
+if "%BRANCH%"=="main" goto wrongbranch
+if "%BRANCH%"=="staging" goto wrongbranch
+goto branchok
+:wrongbranch
+echo You're on %BRANCH%. Releases are made on test, then go test -^> staging -^> main through pull requests: git switch test
+exit /b 1
+:branchok
+
 powershell -NoProfile -Command "$v = '%VERSION%'.Trim(); $dv = @(git tag) -match '^v\d{2}\.\d{2}\.\d{2}(-[1-9]\d*)?$'; if ($v -match '^0\.(0|[1-9]\d*)\.(0|[1-9]\d*)$') { if ($dv.Count) { exit 4 }; exit 0 }; if ($v -notmatch '^\d{2}\.(0[1-9]|1[0-2])\.(0[1-9]|[12]\d|3[01])(-[1-9]\d*)?$') { exit 1 }; $d = $v.Split('-')[0]; $p = [DateTime]::MinValue; if (-not [DateTime]::TryParseExact($d, 'yy.MM.dd', [Globalization.CultureInfo]::InvariantCulture, 'None', [ref]$p)) { exit 1 }; $t = [DateTime]::UtcNow.ToString('yy.MM.dd'); if ($d -gt $t) { exit 2 }; if ($d -lt $t) { exit 3 }; exit 0"
 if errorlevel 4 (
     echo VERSION.md holds %VERSION%, but the project has moved to Date Versioning and can't go back to 0.x.y.
@@ -38,4 +49,6 @@ if errorlevel 1 (
 
 git tag -a "v%VERSION%" -m "FlashView v%VERSION%"
 echo Tagged v%VERSION%.
-echo Push with: git push origin test v%VERSION%, then open a pull request from test into main.
+echo Push with: git push origin %BRANCH% v%VERSION%
+echo Then open a pull request into staging: gh pr create --base staging --head %BRANCH%
+echo Once staging is checked, open one from staging into main: gh pr create --base main --head staging
