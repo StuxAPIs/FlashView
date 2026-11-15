@@ -1,7 +1,7 @@
 """FlashView's local dev server: serves the repo like GitHub Pages does (clean URLs: /about -> about.html,
 404.html for anything missing, application/wasm for Ruffle), and with DEV_MODE=1 (the default from
 dev-server.sh/.bat) injects a small "local dev" banner into every page.
-Usage: python -I scripts/dev-server.py <root> <port>"""
+Usage: python -I scripts/dev-server.py <root> <port> [host]   (host defaults to 127.0.0.1; --lan passes 0.0.0.0)"""
 import functools
 import http.server
 import os
@@ -9,6 +9,7 @@ import sys
 
 ROOT = os.path.abspath(sys.argv[1])
 PORT = int(sys.argv[2])
+HOST = sys.argv[3] if len(sys.argv) > 3 else "127.0.0.1"
 DEV_MODE = os.environ.get("DEV_MODE", "1") == "1"
 BANNER = (b'<div style="position:fixed;left:0;right:0;bottom:0;z-index:2147483647;background:#c8102e;color:#fff;'
           b'font:600 12px/1.6 system-ui,sans-serif;text-align:center;padding:3px">LOCAL DEV &middot; dev-server '
@@ -57,4 +58,4 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.do_GET()
 
 
-http.server.ThreadingHTTPServer(("127.0.0.1", PORT), functools.partial(Handler, directory=ROOT)).serve_forever()
+http.server.ThreadingHTTPServer((HOST, PORT), functools.partial(Handler, directory=ROOT)).serve_forever()

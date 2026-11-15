@@ -1,10 +1,10 @@
 name: CI
 
-# Runs the checks on pushes to main and test, and on every pull request (a pull request from test into
-# main needs this to pass before it is merged).
+# Runs the checks on pushes to main, staging and test, and on every pull request (the pull requests
+# from test into staging and from staging into main need this to pass before they are merged).
 on:
   push:
-    branches: [main, test]
+    branches: [main, staging, test]
   pull_request:
 
 permissions:
